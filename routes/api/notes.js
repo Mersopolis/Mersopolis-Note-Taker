@@ -3,7 +3,10 @@ const { readFromFile, readAndAppend } = require("../../helpers/fsUtils");
 
 // GET Route for retrieving all notes
 notes.get("/api/notes", (req, res) => {
-  readFromFile("./db/db.json").then((data) => res.json(JSON.parse(data)));
+  readFromFile("./db/db.json").then((data) => {
+    console.log("Parsing...\n", data);
+    res.json(JSON.parse(data));
+  });
 });
 
 // POST Route for a new note
