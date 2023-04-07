@@ -73,6 +73,7 @@ const handleNoteSave = () => {
 // Sets the activeNote and displays it
 const handleNoteView = (e) => {
   e.preventDefault();
+  console.log("Parsing...\n", e.target.parentElement.getAttribute("data-note"));
   activeNote = JSON.parse(e.target.parentElement.getAttribute("data-note"));
   renderActiveNote();
 };
