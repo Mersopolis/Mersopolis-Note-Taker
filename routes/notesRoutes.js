@@ -1,8 +1,9 @@
-const notes = require("express").Router();
-const { readFromFile, readAndAppend } = require("../../helpers/fsUtils");
+const router = require("express").Router();
+const { readFromFile, readAndAppend } = require("../helpers/fsUtils");
 
 // GET Route for retrieving all notes
-notes.get("/api/notes", (req, res) => {
+router.get("/", (req, res) => {
+  console.log(res);
   readFromFile("./db/db.json").then((data) => {
     console.log("Parsing...\n", data);
     res.json(JSON.parse(data));
@@ -10,7 +11,7 @@ notes.get("/api/notes", (req, res) => {
 });
 
 // POST Route for a new note
-notes.post("/api/notes", (req, res) => {
+router.post("/", (req, res) => {
   console.log(req.body);
 
   const { title, text } = req.body;
@@ -21,7 +22,7 @@ notes.post("/api/notes", (req, res) => {
       text
     };
 
-    readAndAppend(newNote, "./db/db.json");
+    readAndAppend(newNote, "../db/db.json");
     res.json(`Note added successfully 🚀`);
   }
   else {
@@ -29,4 +30,4 @@ notes.post("/api/notes", (req, res) => {
   }
 });
 
-module.exports = notes;
+module.exports = router;

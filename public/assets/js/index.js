@@ -25,16 +25,16 @@ const hide = (elem) => {
 // activeNote is used to keep track of the note in the textarea
 let activeNote = {};
 
-const getNotes = () =>
-  fetch("/notes", {
+const getNotes = async () =>
+  fetch("/api/notesRoutes", {
     method: "GET",
     headers: {
       "Content-Type": "application/json",
     },
   });
 
-const saveNote = (note) =>
-  fetch("/notes", {
+const saveNote = async (note) =>
+  fetch("/api/notesRoutes", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -73,7 +73,7 @@ const handleNoteSave = () => {
 // Sets the activeNote and displays it
 const handleNoteView = (e) => {
   e.preventDefault();
-  console.log("Parsing...\n", e.target.parentElement.getAttribute("data-note"));
+  console.log("Parsing...\n", e, e.target, e.targe.parentElement, e.target.parentElement.getAttribute("data-note"));
   activeNote = JSON.parse(e.target.parentElement.getAttribute("data-note"));
   renderActiveNote();
 };
@@ -103,7 +103,7 @@ const renderNoteList = async (notes) => {
   let noteListItems = [];
 
   // Returns HTML element with or without a delete button
-  const createLi = (text, delBtn = true) => {
+  const createLi = (text = true) => {
     const liEl = document.createElement("li");
     liEl.classList.add("list-group-item");
 
